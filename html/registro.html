@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <script type="text/Javascript" src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/loginRegistro.css">
+    <title></title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="../index.php">Tank Reviver</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="html/aboutUs.html">About us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="html/specialRequest.html">Special Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="html/registro.html">Registro</a>
+            </li>
+            </ul>
+            <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        </div>
+    </nav>
+    <main>
+        <form action="../php/adicionar.php" method="POST" >
+        <input type="text" name="nome" placeholder="Insira o seu nome" class="inp">
+        <input type="text" name="apelido" placeholder="Insira o seu apelido" class="inp">
+        <input type="email" name="email" placeholder="Insira o seu email" class="inp">
+        <input type="password" name="password" placeholder="Insira o seu password" class="inp">
+        <input type="number" name="phone" maxlength="9" placeholder="Insira o seu numero de telefone" class="inp">
+        <input type="text" name="address" placeholder="Insira o seu indereço" class="inp">
+        <input type="text" name="city" placeholder="Insira o sua cidade" class="inp">
+        <input type="text" name="state" placeholder="Insira o seu conselho" class="inp">
+        <input type="text" name="zipcode" placeholder="Insira o seu codigo postal" class="inp">
+        <input type="text" name="country" placeholder="Insira o seu pais" class="inp">
+        <input type="submit" value="Regista" class=" inp btn-sub">
+        </form>
+        <a href="login.html" class="link">Se tem conta faça o login aqui</a>
+    </main>
+
+</body>
+</html>

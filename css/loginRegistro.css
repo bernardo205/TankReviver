@@ -1,0 +1,30 @@
+main{
+    width: 200px;
+    height: 400px;
+    margin-left: 35%; 
+    margin-top: 100px;
+}
+.img{
+    max-width: 300px;
+    margin-left: 35%;
+    margin-bottom: -80px;
+    margin-top: 20px;
+}
+.inp{
+    width: 300px;
+    margin-top: 15px;
+    border: 2px solid #9f9f9f;
+    border-radius: 4px;
+    color: black;
+}
+.btn-sub{
+    width: 150px;
+    background-color: blue;
+    color: white;
+    border-radius: 15px;
+}
+.link:link {
+    text-decoration: none;
+    color: black;
+    font-size: 11px;
+}

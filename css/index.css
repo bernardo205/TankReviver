@@ -1,0 +1,17 @@
+.tank-card {
+    margin: 10px;
+}
+
+.tank-image {
+    max-height: 150px; /* Set a maximum height for the images */
+    width: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+}
+
+.additional-details {
+    display: none;
+}
+
+.tank-card:hover .additional-details {
+    display: block;
+}

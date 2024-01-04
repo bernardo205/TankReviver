@@ -1,0 +1,35 @@
+.tank-details {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.tank-details img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.tank-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.tank-details p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.tank-details label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.btn{
+    margin-top: 15px;
+    margin-left: 35%;
+}
