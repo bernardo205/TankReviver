@@ -13,6 +13,9 @@ if ($mysqli->connect_error) {
     die('Connection failed: ' . $mysqli->connect_error);
 }
 
+// Start the session
+session_start();
+
 // Handle tank search
 $searchTank = isset($_GET['search']) ? $_GET['search'] : '';
 
@@ -34,29 +37,29 @@ $resultado = mysqli_query($mysqli, $query);
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <title>Loja Tanks</title>
+    <title>Tank Reviver</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Tank Reviver</a>
+            <a class="navbar-brand" href="../index.php">Tank Reviver</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="html/aboutUs.html">About us</a>
+                        <a class="nav-link active" aria-current="page" href="../html/aboutUs.html">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="html/specialRequest.html">Special Request</a>
+                        <a class="nav-link" href="../html/specialRequest.html">Special Request</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="perfil.php">Perfil</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" method="get" action="index.php">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -79,13 +82,12 @@ $resultado = mysqli_query($mysqli, $query);
                                     <?php echo $row['Country']; ?><br>
                                     Crew: <?php echo $row['Crew']; ?>
                                 </p>
-                                
                             </div>
                             <div class="additional-details">
                                 <p>Horsepower: <?php echo $row['Horsepower']; ?></p>
                                 <p>Mass: <?php echo $row['Mass']; ?></p>
                                 <p>Power to Weight: <?php echo $row['Power_to_Weight']; ?></p>
-                                <a href="php/tank_details.php?tank_name=<?php echo urlencode($row['Tank_Name']); ?>" class="btn btn-primary">View Details</a>
+                                <a href="tankDetailsLog.php?tank_name=<?php echo urlencode($row['Tank_Name']); ?>" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,38 @@
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#cart-items {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+}

@@ -128,7 +128,6 @@ $stmt->close();
                     <p><label>Turret Armor:</label> <?php echo htmlspecialchars($row['Turret_Armor']); ?></p>
                     <p><label>Armor Penetration:</label> <?php echo htmlspecialchars($row['Armor_Penetration']); ?></p>
                     <p><label>Caliber:</label> <?php echo htmlspecialchars($row['Caliber']); ?></p>
-                    <a href="php/tank_details.php?tank_name=<?php echo urlencode($row['Tank_Name']); ?>" class="btn btn-danger">Comprar</a>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>

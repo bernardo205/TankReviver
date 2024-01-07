@@ -1,5 +1,4 @@
 <?php
-
 // Database connection parameters
 $host = 'localhost';
 $username = 'root';
@@ -17,37 +16,38 @@ if ($mysqli->connect_error) {
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Use declaração preparada para evitar injeção de SQL
+// Use prepared statement to prevent SQL injection
 $sql = "SELECT * FROM customer WHERE Email=? AND Password=?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("ss", $email, $password);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Verifique se o login foi bem-sucedido
+// Check if login was successful
 if ($result->num_rows > 0) {
-    // Inicie a sessão se ainda não estiver iniciada
+    // Start session if not already started
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
 
-    // Obtenha o ID do cliente, se necessário
+    // Get customer ID if needed
     $row = $result->fetch_assoc();
     $customerId = $row['Customer_Id'];
 
-    // Armazene informações na sessão, se necessário
+    // Store information in session if needed
     $_SESSION['CustomerEmail'] = $email;
     $_SESSION['CustomerId'] = $customerId;
 
-    echo "<script>alert('Login com sucesso!');</script>";
-    header("Location: indexLog.php");
+    echo "<script>alert('Login successful!');</script>";
+
+    // Add email as a parameter in the redirection URL
+    header("Location: indexLog.php?email=" . urlencode($email));
     exit();
 } else {
-    echo "<script>alert('E-mail ou senha incorretos');</script>";
+    echo "<script>alert('Incorrect email or password');</script>";
 }
 
-// Feche a declaração e a conexão
+// Close statement and connection
 $stmt->close();
 $mysqli->close();
-
 ?>
