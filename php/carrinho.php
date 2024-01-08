@@ -36,16 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Handle the case when the query execution fails
             echo "Error updating the database.";
-            exit();
         }
-
-        // Close the statement
-        $stmt->close();
     } else {
         // Handle the case when session or tank_name is not set
         echo "Invalid request.";
-        exit();
     }
+
+    // Close the statement
+    $stmt->close();
 }
 
 // Close the database connection

@@ -13,17 +13,49 @@ if ($mysqli->connect_error) {
     die('Connection failed: ' . $mysqli->connect_error);
 }
 
-$email = $_POST['email'];
+$email = strtolower($_POST['email']); // Convert to lowercase
 $password = $_POST['password'];
 
-// Use prepared statement to prevent SQL injection
+// Check if the email belongs to the "@tankrevive.com" domain
+if (strpos($email, '@tankrevive.com') !== false) {
+    // Use prepared statement to prevent SQL injection
+    $sql = "SELECT * FROM admin WHERE email=? AND password=?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if admin login was successful
+    if ($result->num_rows > 0) {
+        // Start session if not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Get admin ID if needed
+        $row = $result->fetch_assoc();
+        $adminId = $row['id'];
+
+        // Store information in session if needed
+        $_SESSION['AdminEmail'] = $email;
+        $_SESSION['AdminId'] = $adminId;
+
+        echo "<script>alert('Admin Login successful!');</script>";
+
+        // Redirect to admin page
+        header("Location: adminPage.php?email=" . urlencode($email));
+        exit();
+    }
+}
+
+// If not an admin or admin login failed, check customer login
 $sql = "SELECT * FROM customer WHERE Email=? AND Password=?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("ss", $email, $password);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Check if login was successful
+// Check if customer login was successful
 if ($result->num_rows > 0) {
     // Start session if not already started
     if (session_status() == PHP_SESSION_NONE) {
@@ -38,9 +70,9 @@ if ($result->num_rows > 0) {
     $_SESSION['CustomerEmail'] = $email;
     $_SESSION['CustomerId'] = $customerId;
 
-    echo "<script>alert('Login successful!');</script>";
+    echo "<script>alert('Customer Login successful!');</script>";
 
-    // Add email as a parameter in the redirection URL
+    // Redirect to customer page
     header("Location: indexLog.php?email=" . urlencode($email));
     exit();
 } else {

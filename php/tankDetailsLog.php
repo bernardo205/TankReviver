@@ -36,7 +36,8 @@ $sql = "
         main_tr.Hull_Armor,
         main_tr.Turret_Armor,
         main_tr.Armor_Penetration,
-        caliber_type.Caliber
+        caliber_type.Caliber,
+        main_tr.Price
     FROM
         main_tr
     JOIN
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Tank Details</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="../index.php">Tank Reviver</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../html/aboutUs.html">About us</a>
+                        <a class="nav-link active" aria-current="page" href="../html/aboutUsLog.html">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../html/specialRequest.html">Special Request</a>
+                        <a class="nav-link" href="../html/specialRequestLog.html">Special Request</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="perfil.php">Perfil</a>
@@ -133,6 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p><label>Armor Penetration:</label> <?php echo htmlspecialchars($row['Armor_Penetration']); ?></p>
                     <p><label>Caliber:</label> <?php echo htmlspecialchars($row['Caliber']); ?></p>
                     <form method="post" action="carrinho.php">
+                    Price: <?php echo htmlspecialchars($row['Price']);?>
                         <input type="hidden" name="tank_name" value="<?php echo htmlspecialchars($row['Tank_Name']); ?>">
                         <button type="submit" class="btn btn-danger">Buy</button>
                     </form>

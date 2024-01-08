@@ -18,7 +18,7 @@ $searchTank = isset($_GET['search']) ? $_GET['search'] : '';
 
 // SQL Query with search condition
 $query = "SELECT t.Tank_Name, p.Country, t.Production_Start, t.Production_End, t.Crew,
-          t.Horsepower, t.Mass, t.Power_to_Weight
+          t.Horsepower, t.Mass, t.Power_to_Weight,t.Price
           FROM main_tr t
           JOIN country_type p ON t.Country_Id = p.Country_Id
           WHERE t.Tank_Name LIKE '%$searchTank%'";
@@ -39,7 +39,7 @@ $resultado = mysqli_query($mysqli, $query);
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Tank Reviver</a>
+            <a class="navbar-brand" href="index.php">Tank Reviver</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -77,14 +77,17 @@ $resultado = mysqli_query($mysqli, $query);
                                 <h5 class="card-title"><?php echo $row['Tank_Name']; ?></h5>
                                 <p class="card-text">
                                     <?php echo $row['Country']; ?><br>
-                                    Crew: <?php echo $row['Crew']; ?>
+                                    Crew: <?php echo $row['Crew']; ?><br>
+                                    Price: <?php echo $row['Price']?><br>
                                 </p>
                                 
                             </div>
-                            <div class="additional-details">
-                                <p>Horsepower: <?php echo $row['Horsepower']; ?></p>
-                                <p>Mass: <?php echo $row['Mass']; ?></p>
-                                <p>Power to Weight: <?php echo $row['Power_to_Weight']; ?></p>
+                            <div class="additional-details" style="margin-left: 5px;">
+                                <p class="card-details">
+                                    Horsepower: <?php echo $row['Horsepower']; ?><br>
+                                    Mass: <?php echo $row['Mass']; ?><br>
+                                    Power to Weight: <?php echo $row['Power_to_Weight']; ?><br>
+                                </p>
                                 <a href="php/tank_details.php?tank_name=<?php echo urlencode($row['Tank_Name']); ?>" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
