@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 
-    <a href="perfil.php"><button type="submit" class="btn btn-danger" style="margin-top: 15px;">Voltar ao perfil</button></a>
+    <a href="perfil.php"><button type="submit" class="btn btn-danger" style="margin-top: 15px;margin-left: 100px;">Voltar ao perfil</button></a>
 </div>
 
 </body>

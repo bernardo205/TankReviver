@@ -1,5 +1,4 @@
 main{
-    width: 200px;
     height: 400px;
     margin-left: 35%; 
     margin-top: 100px;
@@ -16,6 +15,16 @@ main{
     border: 2px solid #9f9f9f;
     border-radius: 4px;
     color: black;
+}
+.inp2{
+    width: 150px;
+    margin-top: 15px;
+    border: 2px solid #9f9f9f;
+    border-radius: 4px;
+    color: black;
+}
+.form{
+    width: 400px;
 }
 .btn-sub{
     width: 150px;

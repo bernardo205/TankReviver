@@ -24,68 +24,76 @@
 
     <div class="container mt-4">
         <?php
-        // Inicie a sessão se não estiver iniciada
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-        // Verifique se o usuário está autenticado como administrador
         if (!isset($_SESSION['AdminEmail'])) {
             header("Location: adminLogin.html");
             exit();
         }
 
-        // Parâmetros de conexão com o banco de dados
         $host = 'localhost';
         $username = 'root';
         $pass = '1979';
         $database = 'main';
 
-        // Criação da conexão com o banco de dados
         $mysqli = new mysqli($host, $username, $pass, $database);
 
-        // Verifica a conexão
         if ($mysqli->connect_error) {
             die('Connection failed: ' . $mysqli->connect_error);
         }
 
-        // Código SQL para obter todas as compras
-        $sql = "SELECT * FROM compra where status = 'Pendente' ORDER BY date ASC ";
+        $sql = "SELECT compra.*, main_tr.Price 
+                FROM compra
+                JOIN main_tr ON compra.Tank_name = main_tr.Tank_Name
+                WHERE compra.status = 'Pendente'
+                ORDER BY compra.date ASC ";
+
         $result = $mysqli->query($sql);
 
-        // Verifica se há resultados
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                ?>
-                <div class='card mt-3'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>Compra #<?php echo $row['id']; ?></h5>
-                        <p class='card-text'><strong>Email:</strong> <?php echo $row['Email']; ?></p>
-                        <p class='card-text'><strong>Tank Name:</strong> <?php echo $row['Tank_name']; ?></p>
-                        <p class='card-text'><strong>Data:</strong> <?php echo $row['date']; ?></p>
-                        <p class='card-text'><strong>Status:</strong> <?php echo $row['status']; ?></p>
-                        <p class='card-text'><strong>Preço de Venda:</strong> <?php echo $row['sale_price']; ?></p>
-                        
-                        <!-- Botão de exclusão -->
-                        <form action='deleteCompra.php' method='POST'>
-                            <input type='hidden' name='compra_id' value='<?php echo $row['id']; ?>'>
-                            <button type='submit' class='btn btn-danger'>Excluir Compra</button>
-                        </form>
-                    </div>
-                </div>
-                <?php
+        $groupedCompras = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $dataCompra = $row['date'];
+            $emailCompra = $row['Email'];
+            $groupKey = $dataCompra . '_' . $emailCompra;
+
+            if (!isset($groupedCompras[$groupKey])) {
+                $groupedCompras[$groupKey] = array(
+                    'data' => $dataCompra,
+                    'email' => $emailCompra,
+                    'compras' => array(),
+                    'totalPrice' => 0
+                );
             }
-        } else {
+
+            $groupedCompras[$groupKey]['compras'][] = $row;
+            $groupedCompras[$groupKey]['totalPrice'] += $row['Price'];
+        }
+
+        foreach ($groupedCompras as $groupedCompra) {
             ?>
             <div class='card mt-3'>
                 <div class='card-body'>
-                    Nenhuma compra encontrada.
+                    <h5 class='card-title'>Compras em <?php echo $groupedCompra['data']; ?> para <?php echo $groupedCompra['email']; ?></h5>
+                    <?php
+                    foreach ($groupedCompra['compras'] as $compra) {
+                        ?>
+                        <p class='card-text'><strong>Compra #<?php echo $compra['id']; ?>:</strong> Tank Name: <?php echo $compra['Tank_name']; ?>, Status: <?php echo $compra['status']; ?>, Preço de Venda: <?php echo $compra['Price']; ?></p>
+                        <?php
+                    }
+                    ?>
+                    <p class='card-text'><strong>Preço Total:</strong> <?php echo $groupedCompra['totalPrice']; ?></p>
+                    <form action='deleteCompra.php' method='POST'>
+                        <input type='hidden' name='compra_id' value='<?php echo $groupedCompra['compras'][0]['id']; ?>'>
+                        <button type='submit' class='btn btn-danger'>Excluir Todas as Compras</button>
+                    </form>
                 </div>
             </div>
             <?php
         }
 
-        // Feche a conexão
         $mysqli->close();
         ?>
     </div>
